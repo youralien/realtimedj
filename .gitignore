@@ -1,3 +1,7 @@
+# My ignores
+echonestAPIinfo.txt
+olinjslab2.sublime-project
+olinjslab2.sublime-workspace
 # Logs
 logs
 *.log
