@@ -4,29 +4,27 @@
  */
 
 var express = require('express'),
+  logger = require('morgan'),
+  bodyParser = require('body-parser'),
+  cookieParser = require('cookie-parser'),
+  http = require('http'),
   socket = require('./routes/socket.js');
 
-var app = module.exports = express.createServer();
+var app = express();
+var server = http.Server(app);
 
 // Hook Socket.io into Express
-var io = require('socket.io').listen(app);
+var io = require('socket.io')(server);
 
+// from socket.io mainpage
+server.listen(2080);
 // Configuration
 
-app.configure(function(){
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.static(__dirname + '/public'));
-  app.use(app.router);
-});
-
-app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
-});
-
-app.configure('production', function(){
-  app.use(express.errorHandler());
-});
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(__dirname + '/public'));
 
 // Socket.io Communication
 
@@ -35,5 +33,5 @@ io.sockets.on('connection', socket);
 // Start server
 
 app.listen(3000, function(){
-  console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+  console.log("Express server listening on port 3000");
 });
