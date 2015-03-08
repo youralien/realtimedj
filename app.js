@@ -8,6 +8,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser'),
   http = require('http'),
+  path = require('path'),
   socket = require('./routes/socket.js');
 
 var app = express();
@@ -25,6 +26,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
+
+app.get('/remix', function (req, res) {
+  var url = path.resolve( __dirname + '/views/one.html');
+  res.sendFile(url);
+});
 
 // Socket.io Communication
 
