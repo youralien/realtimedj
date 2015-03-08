@@ -1,9 +1,0 @@
-
-<h2>Available Chat rooms</h2>
-<ul>
-  <li ng-repeat="(id, room) in rooms"><a href="/room/{{id}}">{{room.name}}</a></li>
-</ul>
-<form ng-submit="newRoom()">
-  <input ng-model="roomName"/>
-  <input type="submit" value="Make New Room"/>
-</form>
