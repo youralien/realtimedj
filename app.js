@@ -1,3 +1,8 @@
+/**
+ * app.js
+ * Runs the app on a node server.
+ * Once socket.io gets a connection, it uses 'routes/socket.js' as a callback. 
+ */
 
 /**
  * Module dependencies.

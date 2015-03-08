@@ -1,3 +1,14 @@
+/**
+ * socket.js
+ * Defines all the socket events for a connected user:
+ * 1) Assigning the user the next Guest Name
+ * 2) Initializing their name and the list of other guests
+ * 3) Updating the guest list upon a new guest connecting
+ * 4) Updating the chat window upon anyone sending a message
+ * 5) Updating a name in the guest list upon anyone changing ther name
+ * 6) Removing a user from the guest list upon disconnect.
+ */
+
 // Keep track of which names are used so that there are no duplicates
 var userNames = (function () {
   var names = {};
