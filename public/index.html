@@ -4,10 +4,16 @@
     <meta charset="utf8">
     <base href="/">
     <title>Angular Socket.io IM Demo App</title>
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src='js/remix.js'></script>
+    <script type="text/javascript" src="js/one.js"></script>
   </head>
   <body>
     <h1>Angular Socket.io IM Demo App</h1>
+    <div id='info'> </div>
+    <button onClick="player.play(0, remixed);">Play!</button>
+    <button onClick="player.stop()">Stop!</button>
     <div ng-controller="AppCtrl">
       <div class="col">
         <h3>Messages</h3>
