@@ -381,7 +381,7 @@ function createJRemixer(context, jquery, apiKey) {
 
             var player = {
                 play: function(when, q) {
-                    return queuePlay(0, q);
+                    return queuePlay(when, q);
                 },
 
                 addOnPlayCallback: function(callback) {

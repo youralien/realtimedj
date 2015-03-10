@@ -2,8 +2,12 @@
 // You will need to supply your Echo Nest API key, the trackID, and a URL to the track.
 // The supplied track can be found in the audio subdirectory.
 var apiKey = 'SWHCFHJA2PPHKX7A5';
-var trackID = 'TRCYWPQ139279B3308';
-var trackURL = 'audio/1451_-_D.mp3';
+
+// SAIL song
+var trackID = 'TRWHQOK13B357AB74A'; 
+var trackURL = 'audio/Sail.mp3'
+// var trackID = 'TRCYWPQ139279B3308';
+// var trackURL = 'audio/1451_-_D.mp3';
 
 var remixer;
 var player;
@@ -36,10 +40,11 @@ function init() {
                 remixed = new Array();
                 // Do the remixing here!
                 for (var i=0; i < track.analysis.beats.length; i++) {
-                    if (i % 4 == 0) {
+                    if (i % 1 == 0) {
                         remixed.push(track.analysis.beats[i])
                     }
                 }
+                alert(remixed.length)
                 $("#info").text("Remix complete!");
             }
         });
