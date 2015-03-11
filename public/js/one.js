@@ -22,6 +22,7 @@ function keydown(evt) {
 
     console.log('key', evt.which);
 
+    // when < is pressed
     if (evt.which == 190) {  // , slower
         console.log(player);
         var factor = player.getSpeedFactor() + .01;
@@ -29,6 +30,7 @@ function keydown(evt) {
         evt.preventDefault();
     }
 
+    // when > is pressed
     if (evt.which == 188) {  // . faster
         console.log(player);
         var factor = player.getSpeedFactor() - .01;
@@ -39,14 +41,14 @@ function keydown(evt) {
         evt.preventDefault();
     }
 
-    if (evt.which == 186) {  // ;
+    if (evt.which == 186) {  // way slower
         var factor = player.getSpeedFactor();
         factor /= 2;
         setSpeedFactor(factor)
         evt.preventDefault();
     }
 
-    if (evt.which == 222) {  // ' '
+    if (evt.which == 222) {  // way faster
         var factor = player.getSpeedFactor();
         factor *= 2./3.;
         setSpeedFactor(factor)
