@@ -23,19 +23,23 @@ function keydown(evt) {
     console.log('key', evt.which);
 
     if (evt.which == 190) {  // , slower
-        console.log(player);
-        var factor = player.getSpeedFactor() + .01;
+        console.log(player); 
+        var factor = player.getSpeedFactor() + .05;
         setSpeedFactor(factor)
+        player.stop()
+        player.play(player.curTime(), remixed);
         evt.preventDefault();
     }
 
     if (evt.which == 188) {  // . faster
         console.log(player);
-        var factor = player.getSpeedFactor() - .01;
+        var factor = player.getSpeedFactor() - .05;
         if (factor < 0) {
             factor = 0;
         }
         setSpeedFactor(factor)
+        player.stop()
+        player.play(player.curTime(), remixed)
         evt.preventDefault();
     }
 
@@ -110,6 +114,7 @@ function init() {
 }
 
 function setSpeedFactor(factor) {
+    // debugger;
     player.setSpeedFactor(factor)
     $("#speed").text(Math.round(factor * 100));
 }
