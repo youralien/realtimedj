@@ -303,6 +303,7 @@ function createJRemixer(context, jquery, apiKey) {
             var onPlayCallback = null;
             var afterPlayCallback = null;
             var currentTriggers = new Array();
+            var speedFactor = 1.00
             audioGain.gain.value = 1;
 
             // Connect effects
@@ -329,6 +330,7 @@ function createJRemixer(context, jquery, apiKey) {
                         theTime = (when - context.currentTime + parseFloat(q.duration)) *  1000;
                         currentTriggers.push(setTimeout(afterPlayCallback, theTime));
                     }
+                    debugger;
                     return when + parseFloat(q.duration);
                 } else if ($.isArray(q)) {
                     // Correct for load times
@@ -338,14 +340,19 @@ function createJRemixer(context, jquery, apiKey) {
                     for (var i = 0; i < q.length; i++) {
                         when = queuePlay(when, q[i]);
                     }
+                    // debugger;
                     return when;
                 } else if (isQuantum(q)) {
+                    console.log(speedFactor);
+                    q.duration *= speedFactor;
+                    console.log(q.duration);
                     var audioSource = context.createBufferSource();
                     audioSource.buffer = q.track.buffer;
                     audioSource.connect(audioGain);
                     q.audioSource = audioSource;
                     currentlyQueued.push(audioSource);
                     audioSource.start(when, q.start, q.duration);
+                    debugger;
 
                     // I need to clean up all these ifs
                     if ("syncBuffer" in q) {
@@ -375,6 +382,34 @@ function createJRemixer(context, jquery, apiKey) {
                 }
             }
 
+            function playQuantum(when, q) {
+                var now = context.currentTime;
+                var start = when == 0 ? now : when;
+                var duration = q.duration * speedFactor;
+                var next = start + duration;
+
+                if (speedFactor == 1 && curQ && curQ.track === q.track && curQ.which + 1 == q.which) {
+                    // nah
+                } else {
+                    var audioSource = context.createBufferSource();
+                    audioGain.gain.value = 1;
+                    console.log(q);
+                    console.log(q.track);
+                    audioSource.buffer = q.track.buffer;
+                    audioSource.connect(audioGain);
+                    var tduration = track.audio_summary.duration - q.start;
+                    // audioSource.noteGrainOn(start, q.start, tduration);
+                    audioSource.start(start, q.start, tduration);
+                    if (curAudioSource) {
+                        curAudioSource.noteOff(start);
+                    }
+                    curAudioSource = audioSource;
+                }
+                q.audioSource = curAudioSource;
+                curQ = q;
+                return duration;
+            }
+
             function error(s) {
                 console.log(s);
             }
@@ -382,6 +417,7 @@ function createJRemixer(context, jquery, apiKey) {
             var player = {
                 play: function(when, q) {
                     return queuePlay(0, q.slice(when));
+                    // return playQuantum(when, q);
                 },
 
                 addOnPlayCallback: function(callback) {
@@ -402,6 +438,16 @@ function createJRemixer(context, jquery, apiKey) {
 
                 queueRest: function(duration) {
                     queueTime += duration;
+                },
+
+                // sets speed, requies some modification of the way we play music
+                setSpeedFactor : function(factor) {
+                    speedFactor = factor;
+                    console.log(speedFactor);
+                },
+
+                getSpeedFactor: function() {
+                    return speedFactor;
                 },
 
                 stop: function() {
