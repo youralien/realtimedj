@@ -12,11 +12,13 @@
   </head>
   <body>
     <h1>Angular Socket.io IM Demo App</h1>
-    <div id='info'> </div>
-    <button onClick="player.play(0, remixed);">Play!</button>
+    
     <!-- <button id='play'>Play!</button> -->
-    <button onClick="player.stop()">Stop!</button> 
     <div ng-controller="AppCtrl">
+    <div id='info'> </div>
+    <button ng-click="play();">Play!</button>
+    <button ng-click="stop()">Stop!</button> 
+
       <div class="col">
         <h3>Messages</h3>
         <div class="overflowable">

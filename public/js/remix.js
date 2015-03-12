@@ -394,7 +394,7 @@ function createJRemixer(context, jquery, apiKey) {
                 if (speedFactor == 1 && curQ && curQ.track === q.track && curQ.which + 1 == q.which) {
                     // nah
                 } else {
-                    var audioSource = context.createBufferSource();
+                var audioSource = context.createBufferSource();
                     audioGain.gain.value = 1;
                     console.log(q);
                     console.log(q.track);
@@ -418,6 +418,16 @@ function createJRemixer(context, jquery, apiKey) {
             }
 
             var player = {
+                // Assume context is a web audio context, buffer is a pre-loaded audio buffer.
+                startOffset: 0,
+                startTime: 0,
+
+                pause: function() {
+                  player.stop();
+                  // Measure how much time passed since the last pause.
+                  startOffset += context.currentTime - startTime;
+                },
+
                 play: function(when, q) {
                     return queuePlay(0, q.slice(when));
                     // return playQuantum(when, q);
@@ -470,6 +480,7 @@ function createJRemixer(context, jquery, apiKey) {
                         currentTriggers = new Array();
                     }
                 },
+
 
                 curTime: function() {
                     return context.currentTime;

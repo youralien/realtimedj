@@ -97,4 +97,13 @@ function AppCtrl($scope, socket) {
     // clear message box
     $scope.message = '';
   };
+
+  $scope.play = function () {
+    player.play(0, remixed);
+  };
+
+  $scope.stop = function () {
+    player.stop();
+  };
+
 }

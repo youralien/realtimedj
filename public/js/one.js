@@ -28,6 +28,7 @@ function keydown(evt) {
         setSpeedFactor(factor)
         player.stop()
         player.play(player.curTime(), remixed);
+        console.log(player.curTime());
         evt.preventDefault();
     }
 
@@ -40,6 +41,7 @@ function keydown(evt) {
         setSpeedFactor(factor)
         player.stop()
         player.play(player.curTime(), remixed)
+        console.log(player.curTime());
         evt.preventDefault();
     }
 
