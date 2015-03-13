@@ -110,4 +110,19 @@ module.exports = function (socket) {
     });
   });
 
+  socket.on('dj:faster', function (data) {
+    socket.broadcast.emit('dj:faster', {
+      name: data.name,
+      factor: data.factor,
+      time: data.time
+    });
+  });
+
+  socket.on('dj:slower', function (data) {
+    socket.broadcast.emit('dj:slower', {
+      name: data.name,
+      factor: data.factor,
+      time: data.time
+    });
+  });
 };

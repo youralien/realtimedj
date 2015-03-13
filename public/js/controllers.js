@@ -50,7 +50,16 @@ function AppCtrl($scope, socket) {
 
   socket.on('dj:stop', function (data) {
     $scope.stopMe();
-  })
+  });
+
+  socket.on('dj:faster', function (data) {
+    $scope.fasterMe(data.factor, data.time);
+  });
+
+  socket.on('dj:slower', function (data) {
+    $scope.slowerMe(data.factor, data.time);
+  });
+
   // Private helpers
   // ===============
 
@@ -108,14 +117,14 @@ function AppCtrl($scope, socket) {
   $scope.play = function () {
     player.play(0, remixed);
     socket.emit('dj:play', {
-      user: $scope.name
+      name: $scope.name
     });
   };
 
   $scope.stop = function () {
     player.stop();
     socket.emit('dj:stop', {
-      user: $scope.name
+      name: $scope.name
     })
   };
 
@@ -137,7 +146,14 @@ function AppCtrl($scope, socket) {
     }
     setSpeedFactor(factor)
     player.stop()
-    player.play(player.curTime(), remixed)
+    player.play(player.curTime(), remixed);
+    
+
+    socket.emit('dj:faster', {
+      name: $scope.name,
+      factor: factor,
+      time: player.curTime()
+    });
   };
 
   $scope.slower = function () {
@@ -145,6 +161,24 @@ function AppCtrl($scope, socket) {
     setSpeedFactor(factor)
     player.stop()
     player.play(player.curTime(), remixed);
+    
+    socket.emit('dj:slower', {
+      name: $scope.name,
+      factor: factor,
+      time: player.curTime()
+    });
+  };
+
+  $scope.fasterMe = function (factor, time) {
+    setSpeedFactor(factor)
+    player.stop()
+    player.play(time, remixed);
+  };
+
+  $scope.slowerMe = function (factor, time) {
+    setSpeedFactor(factor)
+    player.stop()
+    player.play(time, remixed);
   };
 
 }
