@@ -132,7 +132,6 @@ function AppCtrl($scope, socket) {
     player.play(0, remixed);
   };
 
-
   $scope.stopMe = function () {
     player.stop();
   };
@@ -142,12 +141,12 @@ function AppCtrl($scope, socket) {
     
     // We can't have the speed factor below zero. No backwards playing
     if (factor < 0) {
-        factor = 0;
+      factor = 0;
     }
-    setSpeedFactor(factor)
-    player.stop()
-    player.play(player.curTime(), remixed);
     
+    var time = player.curTime();
+
+    $scope.fasterMe(factor, time);
 
     socket.emit('dj:faster', {
       name: $scope.name,
@@ -158,10 +157,10 @@ function AppCtrl($scope, socket) {
 
   $scope.slower = function () {
     var factor = player.getSpeedFactor() + .05;
-    setSpeedFactor(factor)
-    player.stop()
-    player.play(player.curTime(), remixed);
+    var time = player.curTime();
     
+    $scope.slowerMe(factor, time);
+
     socket.emit('dj:slower', {
       name: $scope.name,
       factor: factor,
