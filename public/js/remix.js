@@ -10,7 +10,7 @@ function createJRemixer(context, jquery, apiKey) {
         // If you have an EN TRack ID and the location of the audio.
         remixTrackById: function(trackID, trackURL, callback) {
             var track;
-            var url = 'http://developer.echonest.com/api/v4/track/profile?format=json&bucket=audio_summary'
+            var url = 'https://developer.echonest.com/api/v4/track/profile?format=json&bucket=audio_summary'
 
            var retryCount = 3;
            var retryInterval = 3000;
@@ -22,7 +22,7 @@ function createJRemixer(context, jquery, apiKey) {
                     
                     // This call is proxied through the yahoo query engine.  
                     // This is temporary, but works.
-                    $.getJSON("http://query.yahooapis.com/v1/public/yql", 
+                    $.getJSON("https://query.yahooapis.com/v1/public/yql", 
                         { q: "select * from json where url=\"" + analysisURL + "\"", format: "json"}, 
                         function(data) {
                             if (data.query.results != null) {
@@ -344,6 +344,9 @@ function createJRemixer(context, jquery, apiKey) {
                     return when;
                 } else if (isQuantum(q)) {
                     if (speedFactor !== prevSpeed) {
+                        console.log('\nCHANGE SPEED')
+                        console.log(q.duration);
+                        console.log(prevSpeed);
                         console.log(speedFactor);
                         // reset duration before multiplying
                         q.duration /= prevSpeed;
@@ -459,6 +462,11 @@ function createJRemixer(context, jquery, apiKey) {
                     prevSpeed = speedFactor;
                     speedFactor = factor;
                     console.log(speedFactor);
+                },
+
+                resetSpeed: function () {
+                    prevSpeed = 1;
+                    speedFactor = 1;
                 },
 
                 getSpeedFactor: function() {

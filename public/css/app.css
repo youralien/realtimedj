@@ -18,3 +18,7 @@
 .clr {
   clear: both;
 }
+
+#content {
+  padding-left: 2%;
+}
