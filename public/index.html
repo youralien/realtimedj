@@ -3,25 +3,29 @@
   <head>
     <meta charset="utf8">
     <base href="/">
-    <title>Angular Socket.io IM Demo App</title>
+    <title>Real Time DJ Sailing</title>
     <link rel="stylesheet" href="/css/app.css"></link>
+    <link rel="stylesheet" href="/css/foundation.min.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-cookies.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="js/raphael-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lib/foundation.min.js"></script>
     <script type="text/javascript" src='js/remix.js'></script>
     <script type="text/javascript" src="js/one.js"></script> 
   </head>
   <body>
-    <h1>Angular Socket.io IM Demo App</h1>
-    
-    <!-- <button id='play'>Play!</button> -->
+    <nav-bar></nav-bar>
+    <h1>Sail with me into the Dark</h1>
     <div ng-controller="AppCtrl">
     <div id='info'> </div>
     <div id='speed'>Speed, measured in time between beats: {{speedFactor | number:0}}</div>
     <div id='dj-update'>{{dj.name}} {{dj.action}}</div>
-    <button ng-click="play()">Play!</button>
-    <button ng-click="stop()">Stop!</button> 
-    <button ng-click="faster()">Speed Up!</button>
-    <button ng-click="slower()">Slow Down!</button>
+    <div ng-show="nav.username">
+      <button ng-click="play()">Play!</button>
+      <button ng-click="stop()">Stop!</button> 
+      <button ng-click="faster()">Speed Up!</button>
+      <button ng-click="slower()">Slow Down!</button>
+    </div>
       <div class="col">
         <h3>Messages</h3>
         <div class="overflowable">
@@ -49,12 +53,14 @@
         </form>
       </div>
     </div>
-    <script src="js/lib/angular/angular.js"></script>
+    <!-- // <script src="js/lib/angular/angular.js"></script>
+    // <script src="js/lib/angular/angular-cookies.js"></script> -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/app.js"></script>
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/directives.js"></script>
+    <script src="js/login.js"></script>
   </body>
 </html>
