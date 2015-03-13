@@ -15,42 +15,43 @@
   </head>
   <body>
     <nav-bar></nav-bar>
-    <h1>Sail with me into the Dark</h1>
-    <div ng-controller="AppCtrl">
-    <div id='info'> </div>
-    <div id='speed'>Speed, measured in time between beats: {{speedFactor | number:0}}</div>
-    <div id='dj-update'>{{dj.name}} {{dj.action}}</div>
-    <div ng-show="nav.username">
-      <button ng-click="play()">Play!</button>
-      <button ng-click="stop()">Stop!</button> 
-      <button ng-click="faster()">Speed Up!</button>
-      <button ng-click="slower()">Slow Down!</button>
-    </div>
-      <div class="col">
-        <h3>Messages</h3>
-        <div class="overflowable">
-          <p ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">{{message.user}}: {{message.text}}</p>
+    <div id='content' ng-controller="AppCtrl">
+      <h1>Sail with me into the Dark</h1>
+      <div id='info'> </div>
+      <div id='speed'>Speed, measured in time between beats: {{speedFactor | number:0}}</div>
+      <div id='dj-update'>{{dj.name}} {{dj.action}}</div>
+      <div ng-show="nav.username">
+        <button ng-click="play()">Play!</button>
+        <button ng-click="stop()">Stop!</button> 
+        <button ng-click="faster()">Speed Up!</button>
+        <button ng-click="slower()">Slow Down!</button>
+      </div>
+        <div class="col">
+          <h3>Messages</h3>
+          <div class="overflowable">
+            <p ng-repeat="message in messages" ng-class="{alert: message.user == &quot;chatroom&quot;}">{{message.user}}: {{message.text}}</p>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <h3>Users</h3>
-        <div class="overflowable">
-          <p ng-repeat="user in users">{{user}}</p>
+        <div class="col">
+          <h3>Users</h3>
+          <div class="overflowable">
+            <p ng-repeat="user in users">{{user}}</p>
+          </div>
         </div>
-      </div>
-      <div class="clr">
-        <form ng-submit="sendMessage()">Message: 
-          <input size="60" ng-model="message">
-          <input type="submit" value="Send">
-        </form>
-      </div>
-      <div class="clr">
-        <h3>Change your name</h3>
-        <p>Your current user name is {{name}}</p>
-        <form ng-submit="changeName()">
-          <input ng-model="newName">
-          <input type="submit" value="Change Name">
-        </form>
+        <div class="clr">
+          <form ng-submit="sendMessage()">Message: 
+            <input size="60" ng-model="message">
+            <input type="submit" value="Send">
+          </form>
+        </div>
+        <div class="clr">
+          <h3>Change your name</h3>
+          <p>Your current user name is {{name}}</p>
+          <form ng-submit="changeName()">
+            <input ng-model="newName">
+            <input type="submit" value="Change Name">
+          </form>
+        </div>
       </div>
     </div>
     <!-- // <script src="js/lib/angular/angular.js"></script>
