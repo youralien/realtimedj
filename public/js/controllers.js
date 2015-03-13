@@ -6,11 +6,22 @@ function AppCtrl($scope, socket) {
 
   // Socket listeners
   // ================
+  var acts = {
+    'ready': 'is ready to real-time DJ.',
+    'play': 'started the music.',
+    'stop': 'stopped the music.',
+    'faster': 'turned up the beat!',
+    'slower': 'turned down for what!'
+  }
 
   socket.on('init', function (data) {
     $scope.name = data.name;
     $scope.users = data.users;
     $scope.speedFactor = 100;
+    $scope.dj = {
+      name: data.name,
+      action: acts.ready
+    };
   });
 
   socket.on('send:message', function (message) {
@@ -47,18 +58,22 @@ function AppCtrl($scope, socket) {
 
   socket.on('dj:play', function (data) {
     $scope.playMe();
+    updateDjAction(data.name, 'play')
   });
 
   socket.on('dj:stop', function (data) {
     $scope.stopMe();
+    updateDjAction(data.name, 'stop')
   });
 
   socket.on('dj:faster', function (data) {
     $scope.fasterMe(data.factor, data.time);
+    updateDjAction(data.name, 'faster')
   });
 
   socket.on('dj:slower', function (data) {
     $scope.slowerMe(data.factor, data.time);
+    updateDjAction(data.name, 'slower')
   });
 
   // Private helpers
@@ -79,6 +94,10 @@ function AppCtrl($scope, socket) {
     });
   }
 
+  var updateDjAction = function (name, action) {
+    $scope.dj.name = name;
+    $scope.dj.action = acts[action];
+  }
   // Methods published to the scope
   // ==============================
 
@@ -120,6 +139,7 @@ function AppCtrl($scope, socket) {
     socket.emit('dj:play', {
       name: $scope.name
     });
+    updateDjAction($scope.name, 'play')
   };
 
   $scope.stop = function () {
@@ -127,7 +147,9 @@ function AppCtrl($scope, socket) {
     $scope.speedFactor = 100;
     socket.emit('dj:stop', {
       name: $scope.name
-    })
+    });
+    updateDjAction($scope.name, 'stop')
+
   };
 
   $scope.playMe = function () {
@@ -154,6 +176,7 @@ function AppCtrl($scope, socket) {
       factor: factor,
       time: player.curTime()
     });
+    updateDjAction($scope.name, 'faster')
   };
 
   $scope.slower = function () {
@@ -165,6 +188,7 @@ function AppCtrl($scope, socket) {
       factor: factor,
       time: player.curTime()
     });
+    updateDjAction($scope.name, 'slower')
   };
 
   $scope.fasterMe = function (factor, time) {
