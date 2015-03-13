@@ -103,4 +103,11 @@ module.exports = function (socket) {
       name: data.name
     });
   });
+
+  socket.on('dj:stop', function (data) {
+    socket.broadcast.emit('dj:stop', {
+      name: data.name
+    });
+  });
+
 };

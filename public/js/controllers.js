@@ -45,8 +45,11 @@ function AppCtrl($scope, socket) {
   });
 
   socket.on('dj:play', function (data) {
-    alert('dj:play');
     $scope.playMe();
+  });
+
+  socket.on('dj:stop', function (data) {
+    $scope.stopMe();
   })
   // Private helpers
   // ===============
@@ -111,7 +114,9 @@ function AppCtrl($scope, socket) {
 
   $scope.stop = function () {
     player.stop();
-    // TODO: socket emit dj:stop
+    socket.emit('dj:stop', {
+      user: $scope.name
+    })
   };
 
   $scope.playMe = function () {
