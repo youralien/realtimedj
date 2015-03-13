@@ -10,6 +10,7 @@ function AppCtrl($scope, socket) {
   socket.on('init', function (data) {
     $scope.name = data.name;
     $scope.users = data.users;
+    $scope.speedFactor = 100;
   });
 
   socket.on('send:message', function (message) {
@@ -123,6 +124,7 @@ function AppCtrl($scope, socket) {
 
   $scope.stop = function () {
     player.stop();
+    $scope.speedFactor = 100;
     socket.emit('dj:stop', {
       name: $scope.name
     })
@@ -135,6 +137,7 @@ function AppCtrl($scope, socket) {
 
   $scope.stopMe = function () {
     player.stop();
+    $scope.speedFactor = 100;
   };
 
   $scope.faster = function () {
@@ -144,7 +147,7 @@ function AppCtrl($scope, socket) {
     if (factor < 0) {
         factor = 0;
     }
-    
+    $scope.speedFactor = factor * 100;
     $scope.fasterMe(factor, player.curTime());
     socket.emit('dj:faster', {
       name: $scope.name,
@@ -155,6 +158,7 @@ function AppCtrl($scope, socket) {
 
   $scope.slower = function () {
     var factor = player.getSpeedFactor() + .05;
+    $scope.speedFactor = factor * 100;
     $scope.slowerMe(factor, player.curTime());
     socket.emit('dj:slower', {
       name: $scope.name,
@@ -164,12 +168,14 @@ function AppCtrl($scope, socket) {
   };
 
   $scope.fasterMe = function (factor, time) {
+    $scope.speedFactor = factor * 100;
     setSpeedFactor(factor)
     player.stop()
     player.play(time, remixed);
   };
 
   $scope.slowerMe = function (factor, time) {
+    $scope.speedFactor = factor * 100;
     setSpeedFactor(factor)
     player.stop()
     player.play(time, remixed);
