@@ -16,19 +16,8 @@ var prev_dur;
 var divider = 1;
 
 function init() {
-    $("#play").click(
-        function() {
-            if (driver.isRunning()) {
-                driver.stop();
-            } else {
-                driver.setAutobot(false);
-                driver.start();
-            }
-        }
-    );
-
     // setting up basic audio stuff?
-    var contextFunction = window.webkitAudioContext || window.AudioContext;
+    var contextFunction = window.AudioContext;
     if (contextFunction === undefined) {
         $("#info").text("Sorry, this app needs advanced web audio. Your browser doesn't"
             + " support it. Try the latest version of Chrome?");
