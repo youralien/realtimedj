@@ -16,7 +16,7 @@
     <!-- <button id='play'>Play!</button> -->
     <div ng-controller="AppCtrl">
     <div id='info'> </div>
-    <div id='speed'>Speed: {{speedFactor}}</div>
+    <div id='speed'>Speed, measured in time between beats: {{speedFactor | number:0}}</div>
     <div id='dj-update'>{{dj.name}} {{dj.action}}</div>
     <button ng-click="play()">Play!</button>
     <button ng-click="stop()">Stop!</button> 
