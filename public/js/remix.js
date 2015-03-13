@@ -344,6 +344,9 @@ function createJRemixer(context, jquery, apiKey) {
                     return when;
                 } else if (isQuantum(q)) {
                     if (speedFactor !== prevSpeed) {
+                        console.log('\nCHANGE SPEED')
+                        console.log(q.duration);
+                        console.log(prevSpeed);
                         console.log(speedFactor);
                         // reset duration before multiplying
                         q.duration /= prevSpeed;
@@ -459,6 +462,11 @@ function createJRemixer(context, jquery, apiKey) {
                     prevSpeed = speedFactor;
                     speedFactor = factor;
                     console.log(speedFactor);
+                },
+
+                resetSpeed: function () {
+                    prevSpeed = 1;
+                    speedFactor = 1;
                 },
 
                 getSpeedFactor: function() {

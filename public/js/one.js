@@ -60,4 +60,9 @@ function setSpeedFactor(factor) {
     player.setSpeedFactor(factor)
 }
 
+function resetSpeed() {
+    // to fix speed reset when you stop and play again
+    player.resetSpeed()
+}
+
 window.onload = init;
