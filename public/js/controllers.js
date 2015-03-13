@@ -63,6 +63,7 @@ function AppCtrl($scope, socket) {
 
   socket.on('dj:stop', function (data) {
     $scope.stopMe();
+    setSpeedFactor(1);
     updateDjAction(data.name, 'stop')
   });
 
@@ -145,6 +146,7 @@ function AppCtrl($scope, socket) {
   $scope.stop = function () {
     player.stop();
     $scope.speedFactor = 100;
+    setSpeedFactor(1);
     socket.emit('dj:stop', {
       name: $scope.name
     });
