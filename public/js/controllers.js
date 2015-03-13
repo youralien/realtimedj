@@ -44,6 +44,10 @@ function AppCtrl($scope, socket) {
     }
   });
 
+  socket.on('dj:play', function (data) {
+    alert('dj:play');
+    $scope.playMe();
+  })
   // Private helpers
   // ===============
 
@@ -100,9 +104,22 @@ function AppCtrl($scope, socket) {
 
   $scope.play = function () {
     player.play(0, remixed);
+    socket.emit('dj:play', {
+      user: $scope.name
+    });
   };
 
   $scope.stop = function () {
+    player.stop();
+    // TODO: socket emit dj:stop
+  };
+
+  $scope.playMe = function () {
+    player.play(0, remixed);
+  };
+
+
+  $scope.stopMe = function () {
     player.stop();
   };
 

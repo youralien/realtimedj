@@ -97,4 +97,10 @@ module.exports = function (socket) {
     });
     userNames.free(name);
   });
+
+  socket.on('dj:play', function (data) {
+    socket.broadcast.emit('dj:play', {
+      name: data.name
+    });
+  });
 };
